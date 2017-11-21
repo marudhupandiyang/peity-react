@@ -20,7 +20,7 @@ Supports React >= v15.6.2
 
 ```
 import { Line } from 'peity-react';
-<Line values={ [5, 7, 12, 20] } height="16" min="0" max="100" />
+<Line values={ [5, 7, 12, 20, 50, 80, 100, 200] } height={160} min={0} max={100} />
 ```
 
 ### Line options (default)
