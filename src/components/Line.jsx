@@ -23,6 +23,10 @@ class Line extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.computeValues(nextProps));
+  }
+
   computeValues(props = this.props) {
     const {
       values,

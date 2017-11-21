@@ -6,6 +6,68 @@ import { processValues } from '../utils';
 
 class Bar extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      reactValues: this.computeValues(props),
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.computeValues(nextProps));
+  }
+
+  computeValues(props = this.props) {
+
+    const {
+      maxAxisValue,
+      minAxisValue,
+      width,
+      height,
+      padding,
+      values,
+      delimiter,
+    } = this.props;
+
+    const chartValues = processValues(values, delimiter);
+    const maxValue = max([max(chartValues), Number(maxAxisValue)]);
+    const minValue = min(chartValues);
+    const scaleDiff = maxValue - minValue;
+
+    const reactValues = map(chartValues, (value, i) => {
+      const x = this.xScale(Number(i) + padding, width, chartValues.length);
+      const w = this.xScale(Number(i) + 1 - padding, width, chartValues.length) - x
+      const valueY = this.yScale(value, height, scaleDiff, minValue);
+      let y1 = valueY
+      let y2 = valueY
+      let h = 0
+
+      if (!scaleDiff) {
+        h = 1
+      } else if (value < 0) {
+        y1 = this.yScale(min([maxAxisValue, 0]), height, scaleDiff, minValue);
+      } else {
+        y2 = this.yScale(max([minAxisValue, 0]), height, scaleDiff, minValue);
+      }
+
+      h = y2 - y1
+
+      if (h === 0) {
+        h = 1
+        if (maxAxisValue > 0 && scaleDiff) y1--
+      }
+
+      return {
+        fill: this.fill(i),
+        x,
+        y: y1,
+        width: w,
+        height: h,
+      };
+    });
+    return { reactValues };
+  }
+
   fill = (i) => {
     return this.props.fill[i % this.props.fill.length];
   }
@@ -27,22 +89,6 @@ class Bar extends React.Component {
   }
 
   render() {
-
-    const {
-      maxAxisValue,
-      minAxisValue,
-      width,
-      height,
-      padding,
-      values,
-      delimiter,
-    } = this.props;
-
-    const chartValues = processValues(values, delimiter);
-    const maxValue = max([max(chartValues), Number(maxAxisValue)]);
-    const minValue = min(chartValues);
-    const scaleDiff = maxValue - minValue;
-
     return (
       <svg
         className="peity peity-bar"
@@ -50,31 +96,14 @@ class Bar extends React.Component {
         width={width}
       >
         {
-          map(chartValues, (value, i) => {
-            const x = this.xScale(Number(i) + padding, width, chartValues.length);
-            const w = this.xScale(Number(i) + 1 - padding, width, chartValues.length) - x
-            const valueY = this.yScale(value, height, scaleDiff, minValue);
-            let y1 = valueY
-            let y2 = valueY
-            let h = 0
-
-            if (!scaleDiff) {
-              h = 1
-            } else if (value < 0) {
-              y1 = this.yScale(min([maxAxisValue, 0]), height, scaleDiff, minValue);
-            } else {
-              y2 = this.yScale(max([minAxisValue, 0]), height, scaleDiff, minValue);
-            }
-
-            h = y2 - y1
-
-            if (h === 0) {
-              h = 1
-              if (maxAxisValue > 0 && scaleDiff) y1--
-            }
-
-            return (<rect key={ i } fill={ this.fill(i) } x={ x } y={ y1 } width={ w } height={ h }></rect>);
-          })
+          map(this.state.reactValues, (value, index) => (<rect
+                                                            key={`${index}${value.x}`}
+                                                            fill={this.fill(index)}
+                                                            x={value.x}
+                                                            y={value.y1}
+                                                            width={value.w}
+                                                            height={value.h}
+                                                          />))
         }
       </svg>);
   }
