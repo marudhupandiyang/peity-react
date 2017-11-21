@@ -18,26 +18,25 @@ Supports React >= v15.6.2
 
 ### Usage:
 
+#### Line Graph
+
 ```
       import { Line } from 'peity-react';
 
       <Line
         values={[5,3,9,6,5,9,7,3,5,2]}
-        height={16}
       />
 
       <Line
         values={[5,3,2,-1,-3,-2,2,3,5,2]}
-        height={16}
       />
 
       <Line
         values={[0,-3,-6,-4,-5,-4,-7,-3,-5,-2]}
-        height={16}
       />
 
 ```
-Output of the above `line` graph.
+Output of the above `Line` graph.
 
 ![Line output](https://i.imgur.com/IDTB4Ui.png)
 
@@ -53,6 +52,28 @@ stroke: "#4d89f9"
 strokeWidth: 1
 width: 32
 ```
+
+#### Bar Graph
+
+```
+      import { Bar } from 'peity-react';
+
+      <Bar
+        values={[5,3,9,6,5,9,7,3,5,2]}
+      />
+
+      <Bar
+        values={[5,3,2,-1,-3,-2,2,3,5,2]}
+      />
+
+      <Bar
+        values={[0,-3,-6,-4,-5,-4,-7,-3,-5,-2]}
+      />
+
+```
+Output of the above `Bar` graph.
+
+![Bar output](https://i.imgur.com/IDTB4Ui.png)
 
 ### Bar options (default)
 

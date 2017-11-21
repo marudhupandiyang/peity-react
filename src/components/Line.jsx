@@ -1,6 +1,18 @@
-import { map, concat, isEmpty, each, join, slice } from 'lodash';
+import { map,
+  concat,
+  isEmpty,
+  each,
+  join,
+  slice,
+  split,
+  flatten,
+  min,
+  max,
+} from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { processValues } from '../utils';
 
 class Line extends React.Component {
 
@@ -14,8 +26,8 @@ class Line extends React.Component {
   computeValues(props = this.props) {
     const {
       values,
-      max,
-      min,
+      maxAxisValue,
+      minAxisValue,
       strokeWidth,
       strokeColor,
       height,
@@ -23,9 +35,9 @@ class Line extends React.Component {
       width,
     } = props;
 
-    const chartValues = this.values(values);
-    const maxValue = _.max([_.max(chartValues), Number(max)]);
-    const minValue = _.min([_.min(chartValues), Number(min)]);
+    const chartValues = processValues(this.props.values, this.props.delimiter);
+    const maxValue = max([max(chartValues), Number(maxAxisValue)]);
+    const minValue = min([min(chartValues), Number(minAxisValue)]);
     const chartHeight = height - strokeWidth;
     const scaleDiff = maxValue - minValue;
     const zero = this.yScale(Math.max(minValue, 0), chartHeight, strokeWidth, scaleDiff, minValue);
@@ -67,16 +79,15 @@ class Line extends React.Component {
 
   values(values) {
     return typeof this.props.values === 'string'
-      ? _.split(this.props.values, this.props.delimiter).map(v => (Number(v)))
-      : _.flatten([this.props.values]);
+      ? split(this.props.values, this.props.delimiter).map(v => (Number(v)))
+      : flatten([this.props.values]);
   }
 
   renderFill = () => {
     if (this.state.canDrawFill) {
-      // debugger;
       return (<polygon
                 fill={this.props.fillColor}
-                points={_.join(this.state.coords, ' ')}
+                points={join(this.state.coords, ' ')}
               />);
     }
   }
@@ -117,22 +128,21 @@ Line.defaultProps = {
   delimiter: ",",
   fillColor: "#c6d9fd",
   height: 16,
-  min: 0,
-  max: -Infinity,
+  minAxisValue: 0,
+  maxAxisValue: -Infinity,
   strokeColor: "#4d89f9",
   strokeWidth: 1,
   width: 32,
   strokeFillColor: 'none',
 };
 
-
 Line.propTypes = {
   values: PropTypes.any.isRequired,
   delimiter: PropTypes.string,
   fillColor: PropTypes.string,
   height: PropTypes.number,
-  min: PropTypes.number,
-  max: PropTypes.number,
+  minAxisValue: PropTypes.number,
+  maxAxisValue: PropTypes.number,
   strokeColor: PropTypes.string,
   strokeWidth: PropTypes.number,
   width: PropTypes.number,
