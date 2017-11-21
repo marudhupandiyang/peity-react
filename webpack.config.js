@@ -3,11 +3,14 @@ var webpack = require('webpack')
 module.exports = {
 
   entry: [
-    './source/index.js'
+    './src/index.js'
   ],
   output: {
     library: 'PeityReact',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    path: __dirname + '/dist',
+    publicPath: '/',
+    filename: 'index.js'
   },
 
   externals: [
