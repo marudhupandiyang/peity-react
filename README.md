@@ -37,6 +37,9 @@ Supports React >= v15.6.2
       />
 
 ```
+Output of the above `line` graph.
+
+![Line output](https://i.imgur.com/IDTB4Ui.png)
 
 ### Line options (default)
 
