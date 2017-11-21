@@ -1,4 +1,4 @@
-import { map, concat, isEmpty } from 'lodash';
+import { map, concat, isEmpty, each, join, slice } from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,6 @@ class Line extends React.Component {
     this.state = {
       ...this.computeValues(props),
     };
-
   }
 
   computeValues(props = this.props) {
@@ -21,22 +20,28 @@ class Line extends React.Component {
       strokeColor,
       height,
       fillColor,
+      width,
     } = props;
 
     const chartValues = this.values(values);
-    const minValue = _.max([_.max(chartValues), Number(max)]);
+    const maxValue = _.max([_.max(chartValues), Number(max)]);
+    const minValue = _.min([_.min(chartValues), Number(min)]);
     const chartHeight = height - strokeWidth;
-    const scaleDiff = max - min;
-    const zero = this.yScale(Math.max(min, 0));
+    const scaleDiff = maxValue - minValue;
+    const zero = this.yScale(Math.max(minValue, 0), chartHeight, strokeWidth, scaleDiff, minValue);
+
+    const coordsFromValues = [];
+    each(chartValues, (val, key) =>
+         coordsFromValues.push(this.xScale(key, width, chartValues.length), this.yScale(val, chartHeight, strokeWidth, scaleDiff, minValue)));
 
     const coords = concat(
-      [[0, zero]],
-      map(chartValues, (val, key) => [this.xScale(key), this.yScale(val)])
-      [[strokeWidth, zero]],
+      [0, zero],
+      coordsFromValues,
+      [width, zero],
     );
 
-    const canDrawStroke = (!isEmpty(strokeColor) || strokeWidth === 0);
-    const canDrawFill = isEmpty(fillColor);
+    const canDrawStroke = !(isEmpty(strokeColor) || strokeWidth === 0);
+    const canDrawFill = !isEmpty(fillColor);
 
     return {
       coords,
@@ -50,7 +55,7 @@ class Line extends React.Component {
       return input * (width / (valuesLength - 1))
   }
 
-  yScale(input, initalHeight, strokeWidth, diff) {
+  yScale(input, initalHeight, strokeWidth, diff, min) {
     let yScale = initalHeight;
 
     if (diff) {
@@ -68,6 +73,7 @@ class Line extends React.Component {
 
   renderFill = () => {
     if (this.state.canDrawFill) {
+      // debugger;
       return (<polygon
                 fill={this.props.fillColor}
                 points={_.join(this.state.coords, ' ')}
@@ -80,7 +86,7 @@ class Line extends React.Component {
     if  (this.state.canDrawStroke) {
       return (<polyline
                 fill={this.props.strokeFillColor}
-                points={_.join(_.slice(this.state.coords, 1, this.state.coords.length - 1), ' ')}
+                points={join(slice(this.state.coords, 2, this.state.coords.length - 2), ' ')}
                 stroke={this.props.strokeColor}
                 strokeWidth={this.props.strokeWidth}
                 strokeLinecap="square"
