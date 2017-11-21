@@ -21,20 +21,19 @@ Supports React >= v15.6.2
 #### Line Graph
 
 ```
-      import { Line } from 'peity-react';
+import { Line } from 'peity-react';
 
-      <Line
-        values={[5,3,9,6,5,9,7,3,5,2]}
-      />
+<Line
+  values={[5,3,9,6,5,9,7,3,5,2]}
+/>
 
-      <Line
-        values={[5,3,2,-1,-3,-2,2,3,5,2]}
-      />
+<Line
+  values={[5,3,2,-1,-3,-2,2,3,5,2]}
+/>
 
-      <Line
-        values={[0,-3,-6,-4,-5,-4,-7,-3,-5,-2]}
-      />
-
+<Line
+  values={[0,-3,-6,-4,-5,-4,-7,-3,-5,-2]}
+/>
 ```
 Output of the above `Line` graph.
 
@@ -56,20 +55,19 @@ width: 32
 #### Bar Graph
 
 ```
-      import { Bar } from 'peity-react';
+import { Bar } from 'peity-react';
 
-      <Bar
-        values={[5,3,9,6,5,9,7,3,5,2]}
-      />
+<Bar
+  values={[5,3,9,6,5,9,7,3,5,2]}
+/>
 
-      <Bar
-        values={[5,3,2,-1,-3,-2,2,3,5,2]}
-      />
+<Bar
+  values={[5,3,2,-1,-3,-2,2,3,5,2]}
+/>
 
-      <Bar
-        values={[0,-3,-6,-4,-5,-4,-7,-3,-5,-2]}
-      />
-
+<Bar
+  values={[0,-3,-6,-4,-5,-4,-7,-3,-5,-2]}
+/>
 ```
 Output of the above `Bar` graph.
 
