@@ -1,6 +1,6 @@
 {
-  "name": "react-peity",
-  "version": "0.0.1",
+  "name": "peity-react",
+  "version": "0.0.2",
   "description": "React port for `http://benpickles.github.io/peity/`",
   "main": "dist/index.js",
   "scripts": {
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mustangostang/react-peity.git"
+    "url": "git+https://github.com/marudhupandiyang/peity-react.git"
   },
   "author": "Vlad Andersen <vlad.andersen@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mustangostang/react-peity/issues"
+    "url": "https://github.com/marudhupandiyang/peity-react/issues"
   },
-  "homepage": "https://github.com/mustangostang/react-peity#readme",
+  "homepage": "https://github.com/marudhupandiyang/peity-react#readme",
   "dependencies": {},
   "devDependencies": {
     "babel": "^6.23.0",
@@ -30,11 +30,12 @@
     "eslint-loader": "^1.9.0",
     "eslint-plugin-react": "^5.2.2",
     "lodash": "^4.17.4",
-    "react": "^15.1.0",
+    "react": "^15.6.2",
     "webpack": "^1.15.0"
   },
   "peerDependencies": {
-    "react": "^15.1.0",
+    "react": "^15.6.2",
     "lodash": "^4.17.4",
+    "prop-types": "^15.6.0"
   }
 }

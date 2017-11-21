@@ -10,7 +10,7 @@ See the examples at [peity](http://benpickles.github.io/peity/) page.
 
 Currently supports `Line` and `Bar` widgets.
 
-Supports only >= React v15.5
+Supports only >= React v15.6.2
 
 ### Installation:
 

@@ -1,18 +1,19 @@
 import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types'
 
 export default class Line extends React.Component {
 
   static propTypes = {
-    values: React.PropTypes.any.isRequired,
-    delimiter: React.PropTypes.string,
-    fill: React.PropTypes.string,
-    height: React.PropTypes.number,
-    min: React.PropTypes.number,
-    max: React.PropTypes.number,
-    stroke: React.PropTypes.string,
-    strokeWidth: React.PropTypes.number,
-    width: React.PropTypes.number,
+    values: PropTypes.any.isRequired,
+    delimiter: PropTypes.string,
+    fill: PropTypes.string,
+    height: PropTypes.number,
+    min: PropTypes.number,
+    max: PropTypes.number,
+    stroke: PropTypes.string,
+    strokeWidth: PropTypes.number,
+    width: PropTypes.number,
   }
 
   static defaultProps = {
