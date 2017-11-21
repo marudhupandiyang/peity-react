@@ -1,5 +1,7 @@
 ## React-Peity
 
+This is a fork of https://github.com/mustangostang/react-peity. 
+
 A React version of an excellent [peity](https://github.com/benpickles/peity) library for beautiful mini `<svg>` graphs.
 
 Since `peity` is heavily dependent on jQuery, for 2016, a React version was badly needed.
@@ -7,6 +9,8 @@ Since `peity` is heavily dependent on jQuery, for 2016, a React version was badl
 See the examples at [peity](http://benpickles.github.io/peity/) page.
 
 Currently supports `Line` and `Bar` widgets.
+
+Supports only >= React v15.5
 
 ### Installation:
 
