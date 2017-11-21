@@ -1,4 +1,4 @@
-## React-Peity
+## Peity-React
 
 This is a fork of https://github.com/mustangostang/react-peity. Inital port credits to [mustangostang](https://github.com/mustangostang)
 
@@ -14,12 +14,12 @@ Supports React >= v15.6.2
 
 ### Installation:
 
-`npm install react-peity`
+`npm install peity-react`
 
 ### Usage:
 
 ```
-import { Line } from 'react-peity';
+import { Line } from 'peity-react';
 <Line values={ [5, 7, 12, 20] } height="16" min="0" max="100" />
 ```
 
