@@ -73,7 +73,7 @@ width: 32
 ```
 Output of the above `Bar` graph.
 
-![Bar output](https://i.imgur.com/IDTB4Ui.png)
+![Bar output](https://i.imgur.com/SUHl5l8.png)
 
 ### Bar options (default)
 
