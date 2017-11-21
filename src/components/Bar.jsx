@@ -86,7 +86,6 @@ Bar.defaultProps = {
   fill: ["#4D89F9"],
   height: 16,
   minAxisValue: 0,
-  maxAxisValue: -Infinity,
   padding: 0.1,
   width: 32,
 };
