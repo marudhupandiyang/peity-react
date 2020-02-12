@@ -10,11 +10,13 @@ See the examples at [peity](http://benpickles.github.io/peity/) page.
 
 Currently supports `Line` and `Bar` widgets. Will add more in future as time permits.
 
-Supports React >= v15.6.2
+Deprecated API is removed.
+
+Supports React >= v16.3
 
 ### Installation:
 
-`npm install peity-react`
+`npm install https://github.com/darkmiru/peity-react.git`
 
 ### Usage:
 
