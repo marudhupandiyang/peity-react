@@ -16,7 +16,7 @@ Supports React >= v16.3
 
 ### Installation:
 
-`npm install peity-react`
+`npm install https://github.com/darkmiru/peity-react.git`
 
 ### Usage:
 
