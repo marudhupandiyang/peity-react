@@ -19,15 +19,17 @@ class Line extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...this.computeValues(props),
+      ...Line.computeValues(props)
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.computeValues(nextProps));
-  }
+  static getDerivedStateFromProps(nextProps,prevProps){
+    return {
+      ...Line.computeValues(nextProps)
+    };
+  } 
 
-  computeValues(props = this.props) {
+  static computeValues(props) {
     const {
       values,
       maxAxisValue,
@@ -39,16 +41,16 @@ class Line extends React.Component {
       width,
     } = props;
 
-    const chartValues = processValues(this.props.values, this.props.delimiter);
+    const chartValues = processValues(props.values, props.delimiter);
     const maxValue = max([max(chartValues), Number(maxAxisValue)]);
     const minValue = min([min(chartValues), Number(minAxisValue)]);
     const chartHeight = height - strokeWidth;
     const scaleDiff = maxValue - minValue;
-    const zero = this.yScale(Math.max(minValue, 0), chartHeight, strokeWidth, scaleDiff, minValue);
+    const zero = Line.yScale(Math.max(minValue, 0), chartHeight, strokeWidth, scaleDiff, minValue);
 
     const coordsFromValues = [];
     each(chartValues, (val, key) =>
-         coordsFromValues.push(this.xScale(key, width, chartValues.length), this.yScale(val, chartHeight, strokeWidth, scaleDiff, minValue)));
+         coordsFromValues.push(Line.xScale(key, width, chartValues.length), this.yScale(val, chartHeight, strokeWidth, scaleDiff, minValue)));
 
     const coords = concat(
       [0, zero],
@@ -67,11 +69,11 @@ class Line extends React.Component {
   }
 
 
-  xScale(input, width, valuesLength) {
+  static xScale(input, width, valuesLength) {
       return input * (width / (valuesLength - 1))
   }
 
-  yScale(input, initalHeight, strokeWidth, diff, min) {
+  static yScale(input, initalHeight, strokeWidth, diff, min) {
     let yScale = initalHeight;
 
     if (diff) {
